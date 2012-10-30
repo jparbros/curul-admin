@@ -1,0 +1,37 @@
+.box
+  .box-title
+    %h2 Temas
+
+  .box-content
+    = form_tag topics_path, :method => :get do
+      .row-fluid
+        .span4
+          = label_tag :tema
+          .input
+            = text_field_tag 'search[name]'
+            
+      .row-fluid
+        .span4
+          = submit_tag 'Buscar', :class => [:btn, :primary]
+  
+
+    #datatable_wrapper.dataTables_wrapper{role: 'grid'}
+      #datatable_length.dataTables_length
+        = link_to 'Nuevo Tema', new_topic_path, :class => [:btn, 'btn-primary']
+
+      %table.table.table-striped.table-bordered.dataTable
+        %thead
+          %tr
+            %th Tema
+            %th Acciones
+
+        %tbody
+          = render @topics
+
+        %tfoot
+          %tr
+            %th Tema
+            %th Acciones
+
+    #datatable_paginate.dataTables_paginate.paging_full_numbers
+      = paginate @topics

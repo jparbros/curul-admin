@@ -1,0 +1,107 @@
+!!! 5
+%html
+  %head
+    %title
+      Administracion
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = tinymce_assets
+    = csrf_meta_tags
+    = yield(:header)
+
+  %body
+    #loader
+      = image_tag '/assets/ajax-loader.gif'
+    .container-fluid.nopadding
+      .row-fluid
+        .span12
+          #header
+            = link_to 'Congresspedia', root_path
+            .hright
+              .column#search
+                .search
+                  = form_tag representatives_path, method: :get do
+                    = text_field_tag 'search[name]', nil, placeholder: 'Buscar representantes'
+              .column#search
+                .search
+                  = form_tag initiatives_path, method: :get do
+                    = text_field_tag 'search[keywords]', nil, placeholder: 'Buscar iniciativa'
+              .column#userinfo
+                %a{class: 'userinfo dropown-toggle', 'data-toggle' => 'dropdown'}
+                  %span
+                    %strong
+                      Admin
+                %ul.dropdown-menu
+                  %li
+                    %a
+                      Edit Profile
+                  %li.divider
+                  %li
+                    = link_to 'Logout', destroy_user_session_path, method: :delete
+
+    .container-fluid#container
+      .row-fluid
+        .span3.leftmenu
+          %ul.nav
+            %li{}
+              %a{}
+                %span.ico
+                  %i.icon-home
+                %span.text
+                  Dashboard
+            %li
+              = link_to initiatives_path do
+                %span.ico
+                  %i.icon-home
+                %span.text Iniciativas
+            %li
+              = link_to representatives_path do
+                %span.ico
+                  %i.icon-file
+                %span.text Representantes
+            %li
+              = link_to users_path do
+                %span.ico
+                  %i.icon-file
+                %span.text Usuarios
+
+            %li
+              = link_to '#' do
+                %span.ico
+                  %i.icon-file
+                %span.text Catalogos
+              %ul
+                %li
+                  = link_to topics_path do
+                    %span.ico
+                      %i.icon-file
+                    %span.text Temas
+                %li
+                  = link_to political_parties_path do
+                    %span.ico
+                      %i.icon-file
+                    %span.text Partidos Politicos
+                %li
+                  = link_to commissions_path do
+                    %span.ico
+                      %i.icon-file
+                    %span.text Comisiones
+                %li
+                  = link_to legislatures_path do
+                    %span.ico
+                      %i.icon-file
+                    %span.text Legislaturas
+
+
+        #content.span9
+          - flash.each do |name, msg|
+            %div{:class =>"alert alert-#{name == :notice ? 'success' : 'error'}"}
+              %a{:class => 'close', 'data-dismiss' => 'alert'}x
+              = msg
+
+          = yield
+
+%script{type: 'text/javascript'}
+  = yield(:javascript)
+
+= tinymce :theme => "simple", :language => "es", :plugins => ["inlinepopups", "paste"]

@@ -1,0 +1,12 @@
+.box
+  .box-title
+    %h2 Editar Comision
+  
+  .box-content
+    = form_for @commission, :html => {:multipart => true, class: 'form-horizontal'} do |form|
+      = render "shared/error_messages", :target => @commission
+      %fieldset
+        = render :partial => 'form', :locals => {:form => form}
+        .form-actions
+          = form.submit 'Crear Comision', :class => 'btn btn-primary'
+          %input{:type => 'reset', :class => 'btn', :value => 'Limpiar'}

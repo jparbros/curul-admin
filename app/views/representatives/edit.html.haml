@@ -1,0 +1,11 @@
+.box
+  .box-title
+    %h2 Editar Representante
+
+  .box-content  
+    = form_for @representative, :html => {:multipart => true, class: 'form-horizontal'} do |form|
+      = render "shared/error_messages", :target => @representative
+      = render :partial => 'form', :locals => {:form => form}
+      .form-actions
+        = form.submit 'Editar Representante', :class => 'btn btn-primary'
+        %input{:type => 'reset', :class => 'btn', :value => 'Limpiar'}

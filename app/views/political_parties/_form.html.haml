@@ -1,0 +1,10 @@
+.contro-group
+  = form.label :nombre, class: 'control-label'
+  .controls
+    = form.text_field :name, :class => 'xxlarge'
+
+.contro-group
+  = form.label :logotipo, class: 'control-label'
+  .controls
+    = form.file_field :logo, :class => 'xxlarge'
+    = form.hidden_field :logo_cache

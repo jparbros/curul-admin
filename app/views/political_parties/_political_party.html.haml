@@ -1,0 +1,6 @@
+%tr
+  %td= political_party.name
+  %td.center= image_tag political_party.logo.url(:thumb)
+  %td
+    = link_to 'Editar', edit_political_party_path(political_party), class: 'btn btn-primary btn-mini'
+    = link_to 'Borrar', political_party_path(political_party), :method => :delete, :confirm => '¿Esta seguro que desea eliminar la iniciativa?', class: 'btn btn-danger btn-mini'

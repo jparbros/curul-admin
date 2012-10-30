@@ -1,0 +1,36 @@
+.box
+  .box-title
+    %h2 Comisiones
+
+  .box-content    
+    = form_tag commissions_path, :method => :get do
+      .row-fluid
+        .span4
+          = label_tag :comision
+          .input
+            = text_field_tag 'search[name]'
+            
+      .row-fluid
+        .span4
+          = submit_tag 'Buscar', :class => [:btn, :primary]
+
+    #datatable_wrapper.dataTables_wrapper{role: 'grid'}
+      #datatable_length.dataTables_length
+        = link_to 'Nueva Comision', new_commission_path  , :class => [:btn, 'btn-primary']
+
+      %table.table.table-striped.table-bordered.dataTable
+        %thead
+          %tr
+            %th Comision
+            %th
+
+        %tbody
+          = render @commisions
+
+        %tfoot
+          %tr
+            %th Comision
+            %th
+
+    #datatable_paginate.dataTables_paginate.paging_full_numbers
+      = paginate @commisions
