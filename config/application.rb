@@ -71,4 +71,3 @@ module CurulAdmin
   end
 end
 require 'core_ext/string'
-require 'solr_search/representatives'
