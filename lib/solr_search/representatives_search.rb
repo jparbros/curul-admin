@@ -1,5 +1,5 @@
 module SolrSearch
-  module Representatives
+  module RepresentativesSearch
     def self.included(base)
       base.class_eval do
         searchable :auto_index => true, :auto_remove => true do

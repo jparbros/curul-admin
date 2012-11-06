@@ -40,7 +40,7 @@ class Initiative < ActiveRecord::Base
   #
   # Extensions
   #
-  include SolrSearch::Initiatives
+  include SolrSearch::InitiativesSearch
 
   #
   # States

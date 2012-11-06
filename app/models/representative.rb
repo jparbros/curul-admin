@@ -47,7 +47,7 @@ class Representative < ActiveRecord::Base
   #
   # Extensions
   #
-  include SolrSearch::Representatives
+  include SolrSearch::RepresentativesSearch
   
   
   def name
