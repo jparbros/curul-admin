@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
   has_many :user_permissions
   has_many :permissions, through: :user_permissions
 
+  #
+  # Scope
+  #
+  default_scope {where(site_id: Site.current_id)}
 end

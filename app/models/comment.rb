@@ -14,6 +14,7 @@ class Comment < ActiveRecord::Base
   scope :favor, where(:tendency => 1)
   scope :against, where(:tendency => -1)
   scope :actual_legislature, where(:legislature_id => (Legislature.active ? Legislature.active.id : nil))
+  default_scope {where(site_id: Site.current_id)}
 
   #
   # Validations

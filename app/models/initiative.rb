@@ -30,6 +30,7 @@ class Initiative < ActiveRecord::Base
   #
   scope :main, where(:main => true)
   scope :actual_legislature, where(:legislature_id => (Legislature.active ? Legislature.active.id : nil))
+  default_scope {where(site_id: Site.current_id)}
 
   #
   # Pagination

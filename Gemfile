@@ -44,6 +44,7 @@ group :development do
   gem 'annotate'
   gem 'heroku'
   gem 'taps'
+  gem "debugger"
 end
 
 group :production do
