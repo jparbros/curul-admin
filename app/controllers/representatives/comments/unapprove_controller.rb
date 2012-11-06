@@ -1,4 +1,4 @@
-class Representatives::Comments::UnapproveController < ApplicationController
+class ::Representatives::Comments::UnapproveController < ApplicationController
   
   def create
     @representative = Representative.find params[:representative_id]
