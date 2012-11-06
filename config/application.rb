@@ -26,7 +26,6 @@ module CurulAdmin
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += %W(#{config.root}/lib/core_ext)
     config.autoload_paths += %W(#{config.root}/lib/solr_search)
-    config.autoload_paths += %W(#{config.root}/lib/solr_search)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
