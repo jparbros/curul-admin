@@ -1,5 +1,5 @@
 CurulAdmin::Application.routes.draw do
-  devise_for :users, :controllers => { :sessions => "admin/sessions" }
+  devise_for :users
   
   resources :initiatives do
     resource :main, :controller => :main, :only => [:create]
