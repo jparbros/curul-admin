@@ -1,4 +1,35 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: representatives
+#
+#  id                 :integer          not null, primary key
+#  position           :string(255)
+#  region_id          :integer
+#  province_id        :integer
+#  avatar             :string(255)
+#  biography          :text
+#  birthday           :string(255)
+#  twitter            :string(255)
+#  facebook           :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  political_party_id :integer
+#  district           :string(255)
+#  phone              :string(255)
+#  email              :string(255)
+#  substitute         :string(255)
+#  election_type      :string(255)
+#  old_commissions    :string(255)
+#  comments_count     :integer          default(0)
+#  circumscription    :string(255)
+#  legislature_id     :integer
+#  sex                :string(255)
+#  first_name         :string(255)
+#  last_name          :string(255)
+#  site_id            :integer
+#
+
 class Representative < ActiveRecord::Base
 
   #
@@ -16,6 +47,8 @@ class Representative < ActiveRecord::Base
   # Accessor
   #
   attr_reader :commission_tokens
+  attr_accessible :first_name, :last_name, :region_id, :avatar, :avatar_cache, :biography, :birthday, :sex, :email, :phone, :twitter, :facebook, 
+        :political_party_id, :substitute, :election_type, :commission_tokens, :position, :district, :circumscription
 
   #
   # Uploader

@@ -1,4 +1,21 @@
+# == Schema Information
+#
+# Table name: political_parties
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  logo       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  site_id    :integer
+#
+
 class PoliticalParty < ActiveRecord::Base
+
+  #
+  # Accessors
+  #
+  attr_accessible :name, :logo, :logo_cache
 
   #
   # Associations

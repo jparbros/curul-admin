@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: votes
+#
+#  id            :integer          not null, primary key
+#  vote          :integer
+#  initiative_id :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  site_id       :integer
+#
+
 class Vote < ActiveRecord::Base
   
   #

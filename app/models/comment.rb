@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: comments
+#
+#  id               :integer          not null, primary key
+#  comment          :text
+#  author           :string(255)
+#  approved         :boolean
+#  created_at       :datetime
+#  updated_at       :datetime
+#  commentable_id   :integer
+#  commentable_type :string(255)
+#  email            :string(255)
+#  tendency         :integer
+#  reply_to         :integer
+#  legislature_id   :integer
+#  site_id          :integer
+#
+
 class Comment < ActiveRecord::Base
 
   #

@@ -1,3 +1,30 @@
+# == Schema Information
+#
+# Table name: initiatives
+#
+#  id                        :integer          not null, primary key
+#  presented_at              :datetime
+#  description               :text
+#  title                     :text
+#  presented_by              :string(255)
+#  additional_resources      :text
+#  additional_resources_url  :string(255)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  state                     :string(255)
+#  official_vote_up          :integer          default(0)
+#  official_vote_down        :integer          default(0)
+#  representative_id         :integer
+#  main                      :boolean
+#  political_party_id        :integer
+#  voted_at                  :datetime
+#  official_vote_abstentions :integer
+#  comments_count            :integer          default(0)
+#  number                    :string(255)
+#  legislature_id            :integer
+#  site_id                   :integer
+#
+
 
 class Initiative < ActiveRecord::Base
   #
@@ -17,6 +44,8 @@ class Initiative < ActiveRecord::Base
   #
   # Nested Attributes
   #
+  attr_accessible :number, :title, :description, :presented_at, :presented_by_token, :commission_tokens, :topic_tokens, :state, :resources_attributes, :official_vote_up, 
+        :official_vote_down, :official_vote_abstentions, :official_votes_attributes
   accepts_nested_attributes_for :official_votes
   accepts_nested_attributes_for :resources
 

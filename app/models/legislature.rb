@@ -1,4 +1,21 @@
+# == Schema Information
+#
+# Table name: legislatures
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  active     :boolean          default(FALSE)
+#  created_at :datetime
+#  updated_at :datetime
+#  site_id    :integer
+#
+
 class Legislature < ActiveRecord::Base
+
+  #
+  # Accessors
+  #
+  attr_accessible :name, :active
 
   #
   # Associations

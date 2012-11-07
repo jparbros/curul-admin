@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: official_votes
+#
+#  id                 :integer          not null, primary key
+#  political_party_id :integer
+#  votes              :integer
+#  initiative_id      :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  site_id            :integer
+#
+
 class OfficialVote < ActiveRecord::Base
   
   #
@@ -5,6 +18,11 @@ class OfficialVote < ActiveRecord::Base
   #
   belongs_to :initiative
   belongs_to :political_party
+  
+  #
+  # Accessors
+  #
+  attr_accessible :political_party, :political_party_id, :initiative, :initiative_id, :votes
   
   #
   # Scopes
