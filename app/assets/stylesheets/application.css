@@ -10,6 +10,7 @@
  *
  *= require bootstrap.min
  *= require imperio
+ *= require datepicker
  *= require token-input-facebook
  *= require_self
  *= require_tree .

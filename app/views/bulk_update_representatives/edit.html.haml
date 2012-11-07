@@ -5,48 +5,81 @@
       .span3
         %label
           Nombre
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'first_name'
+          en blanco
         %input#representative-search{type: 'text', name:'first_name', 'data-field' => 'first_name'}
       .span3
         %label
           Apellido
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'last_name'
+          en blanco
         %input#representative-search{type: 'text', name:'last_name', 'data-field' => 'last_name'}
       .span3
         %label
           Substituto
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'substitute'
+          en blanco
         %input#substitute-search{type: 'text', name:'substitute', 'data-field' => 'substitute'}
       .span3
         %label
           Distrito
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'district'
+          en blanco
         %input#district-search{type: 'text', name:'district', 'data-field' => 'district'}
     .row-fluid
       .span3
         %label
           Circunscripcion
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'circumscription'
+          en blanco
         %input#circumscription-search{type: 'text', name:'circumscription', 'data-field' => 'circumscription'}
       .span3
         %label
           Estado
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'region_id'
+          en blanco
         = select_tag :region_id, options_for_select(Region.all.collect {|region| [region.name, region.id]}), {include_blank: true, 'data-field' => 'region_id'}
       .span3
         %label
           Twitter
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'twitter'
+          en blanco
         %input#twitter-search{type: 'text', name:'twitter', 'data-field' => 'twitter'}
       .span3
         %label
           Facebook
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'facebook'
+          en blanco
         %input#facebook-search{type: 'text', name:'facebook', 'data-field' => 'facebook'}
     .row-fluid
       .span3
         %label
           Partido Politico
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'political_party_id'
+          en blanco
         = select_tag :political_party_id, options_for_select(PoliticalParty.all.collect {|political_party| [political_party.name, political_party.id]}), {include_blank: true, 'data-field' => 'political_party_id'}
       .span3
         %label
           Legislatura
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'legislature_id'
+          en blanco  
         = select_tag :legislature_id, options_for_select(Legislature.all.collect {|legislature| [legislature.name, legislature.id]}), {include_blank: true, 'data-field' => 'legislature_id'}
       .span3
         %label
           Genero
+        %label.blank
+          = check_box_tag 'substitute_blank','blank', false, 'data-field' => 'sex'
+          en blanco
         = select_tag :legislature_id, options_for_select([['Femenino','f'],['Masculino','m']]), {include_blank: true, 'data-field' => 'sex'}
 
 #myGrid
@@ -64,6 +97,11 @@
       border: none;
       padding: 0;
       margin: 0;
+    }
+    
+    .blank {
+      margin: -25px 0 5px 120px;
+      width: 100px;
     }
 
   = javascript_include_tag 'jquery.event.drag','slickgrid/slick.core','slickgrid/slick.grid','slickgrid/slick.editors.js','slickgrid/slick.dataview.js','editors.js'
@@ -176,17 +214,22 @@
   function myFilter(item, args) {
   var returnResult = true;
 
-  console.log(args.searchObject);
   _.each(args.searchObject, function(filter) {
-  value = "" + (item[filter.field] || "");
+  value = $.trim("" + (item[filter.field] || ""));
   if(filter.field == 'region_id') {
   if((value != filter.value)) {
   
   returnResult = false;
   }
   } else {
+  if(filter.value == 'blank') {
+  if(!_.isEmpty(value)) {
+  returnResult = false;
+  }
+  } else {
   if((value.indexOf(filter.value) == -1)) {
   returnResult = false;
+  }
   }
   }
   });
@@ -257,7 +300,7 @@
   });
 
 
-  $("#data-filter select").change(function() {
+  $("#data-filter select, #data-filter input[type=checkbox]").change(function() {
   updateFilter();
   });
 
@@ -271,7 +314,7 @@
   
   function filters() {
   searchObject = [];
-  _.each($('#data-filter input, #data-filter select'), function(element) {
+  _.each($('#data-filter input[type=text], #data-filter select, #data-filter input:checked'), function(element) {
   if(!_.isEmpty(element.value)) {
   filterValue = {value: element.value, field: $(element).data('field')};
   searchObject.push(filterValue);
