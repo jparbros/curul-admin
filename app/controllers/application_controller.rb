@@ -1,10 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :authenticate_user!, :scope_current_site
-  
-  # around_filter :scope_current_site
-  
+  before_filter :scope_current_site, :authenticate_user!
+    
   check_authorization :unless => :devise_controller?
   
   def current_site
