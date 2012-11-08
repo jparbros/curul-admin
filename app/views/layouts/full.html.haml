@@ -15,8 +15,16 @@
       .row-fluid
         .span12
           #header
-            = link_to 'Congresspedia', root_path
+            = link_to 'Congracy', root_path
             .hright
+              .column#search
+                .search
+                  = form_tag representatives_path, method: :get do
+                    = text_field_tag 'search[name]', nil, placeholder: 'Buscar representantes'
+              .column#search
+                .search
+                  = form_tag initiatives_path, method: :get do
+                    = text_field_tag 'search[keywords]', nil, placeholder: 'Buscar iniciativa'
               .column#userinfo
                 %a{class: 'userinfo dropown-toggle', 'data-toggle' => 'dropdown'}
                   %span
@@ -27,7 +35,9 @@
                     %a
                       Edit Profile
                   %li.divider
-                  %li=# link_for_user_login_or_logout
+                  %li
+                    = link_to 'Logout', destroy_user_session_path, method: :delete
+            
 
     .container-fluid#container
       .row-fluid
