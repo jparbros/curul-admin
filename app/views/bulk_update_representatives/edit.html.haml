@@ -239,10 +239,6 @@
   
 
   
-  function toggleFilterRow() {
-  grid.setTopPanelVisibility(!grid.getOptions().showTopPanel);
-  }
-  
   grid.onSort.subscribe(function (e, args) {
   sortdir = args.sortCols[0].sortAsc ? 1 : -1;
   sortcol = args.sortCols[0].sortCol.field;
@@ -273,7 +269,6 @@
   });
   
   dataView.onRowCountChanged.subscribe(function (e, args) {
-  grid.updateRowCount();
   grid.render();
   });
   
@@ -345,7 +340,7 @@
   }}
   
   $.ajax({
-  url: '/admin/representatives/' + item.id + '.json',
+  url: '/representatives/' + item.id + '.json',
   type: 'PUT',
   data: data
   }); 

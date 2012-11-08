@@ -81,4 +81,6 @@ $(document).ready(function(){
   });
   
   $('#loader').ajaxStart(function() { $(this).show(); }).ajaxStop( function() { $(this).hide(); })
+  
+  $('.leftmenu').affix();
 });

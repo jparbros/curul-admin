@@ -34,6 +34,8 @@
     #datatable_wrapper.dataTables_wrapper{role: 'grid'}
       #datatable_length.dataTables_length
         = link_to 'Nueva Iniciativa', new_initiative_path  , :class => [:btn, 'btn-primary']
+        
+        = link_to 'Bulk Update', initiatives_bulk_update_path  , :class => [:btn, 'btn-primary']
 
       %table.table.table-striped.table-bordered.dataTable
         %thead

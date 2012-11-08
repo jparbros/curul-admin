@@ -35,7 +35,10 @@ class InitiativesController < ApplicationController
   def update
     @initiative = Initiative.find(params[:id])
     if @initiative.update_attributes(params[:initiative])
-      redirect_to initiatives_url, :notice => "Iniciativa editada exitosamente"
+      respond_to do |format|
+        format.html { redirect_to(initiatives_url, :notice => "Iniciativa editada exitosamente") }
+        format.json { render json: @initiative}
+      end
     else
       render :edit
     end

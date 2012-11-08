@@ -1,0 +1,241 @@
+#data-filter.row-fluid
+  .span12.well
+    %h4 Filtros
+    
+    .row-fluid
+      .span3
+        %label
+          Titulo
+        %label.blank
+          = check_box_tag 'title_blank','blank', false, 'data-field' => 'title'
+          en blanco
+        %input#initiative-search{type: 'text', name:'title', 'data-field' => 'title'}
+
+      .span3
+        %label
+          Description
+        %label.blank
+          = check_box_tag 'description_blank','blank', false, 'data-field' => 'description'
+          en blanco
+        %input#initiative-search{type: 'text', name:'description', 'data-field' => 'description'}
+
+      .span3
+        %label
+          Numero
+        %label.blank
+          = check_box_tag 'number_blank','blank', false, 'data-field' => 'number'
+          en blanco
+        %input#initiative-search{type: 'text', name:'number', 'data-field' => 'number'}
+
+
+      .span3
+        %label
+          Estado
+        %label.blank
+          = check_box_tag 'state_blank','blank', false, 'data-field' => 'state'
+          en blanco
+        %input#initiative-search{type: 'text', name:'number', 'data-field' => 'state'}
+
+
+#myGrid
+
+- content_for :header do
+  = stylesheet_link_tag 'slickgrid/slick.grid', 'jquery-ui.custom'
+  :css
+    .ui-datepicker-trigger {
+      margin: 0;
+    }
+    
+    .slick-cell.editable .editor-text {
+      width: 100%;
+      height: 100%;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .blank {
+      margin: -25px 0 5px 120px;
+      width: 100px;
+    }
+
+  = javascript_include_tag 'jquery.event.drag','slickgrid/slick.core','slickgrid/slick.grid','slickgrid/slick.editors.js','slickgrid/slick.dataview.js','editors.js'
+
+- content_for :javascript do
+  var grid;
+  columns = [
+  {id: "number", name: "Numero", field: "number", editor: Slick.Editors.Text, sortable: true},
+  {id: "title", name: "Titulo", field: "title", editor: Slick.Editors.Text, sortable: true},
+  {id: "description", name: "Descripcion", field: "description", editor: Slick.Editors.LongText},
+  {id: "presented_at", name: "Fecha", field: "presented_at", editor: Curul.Editors.Date, sortable: true},
+  {id: "state", name: "Estado", field: "state", editor: Slick.Editors.Text, sortable: true}
+  ];
+  
+  var options = {
+  enableCellNavigation: true,
+  autoHeight: true,
+  forceFitColumns: true,
+  editable: true,
+  asyncEditorLoading: false,
+  multiColumnSort: true,
+  topPanelHeight: 25
+  };
+  
+  var data = #{Initiative.all.to_json.html_safe};
+  
+
+  dataView = new Slick.Data.DataView({ inlineFilters: true });
+  dataView.setItems(data);
+  grid = new Slick.Grid("#myGrid", dataView, columns, options);
+  
+  
+  / 
+  / Update via ajax
+  / 
+
+  grid.onCellChange.subscribe(function (e,args) {
+  dataView.updateItem(args.item.id, args.item);
+  item = args.item;
+  data = {initiative: {
+  title: item.title,
+  description: item.description,
+  number: item.number,
+  presented_at: item.presented_at,
+  }}
+  
+  $.ajax({
+  url: '/initiatives/' + item.id + '.json',
+  type: 'PUT',
+  data: data
+  }); 
+  });
+  
+  /
+  / Sorter
+  /
+  function comparer(a, b) {
+  var x = a[sortcol], y = b[sortcol];
+  return (x == y ? 0 : (x > y ? 1 : -1));
+  }
+  
+  var sortcol = "title";
+  var sortdir = 1;
+  var percentCompleteThreshold = 0;
+  var searchObject = [];
+
+  function requiredFieldValidator(value) {
+  if (value == null || value == undefined || !value.length) {
+  return {valid: false, msg: "This is a required field"};
+  }
+  else {
+  return {valid: true, msg: null};
+  }
+  }
+  
+  grid.onSort.subscribe(function (e, args) {
+  sortdir = args.sortCols[0].sortAsc ? 1 : -1;
+  sortcol = args.sortCols[0].sortCol.field;
+
+  if ($.browser.msie && $.browser.version <= 8) {
+  // using temporary Object.prototype.toString override
+  // more limited and does lexicographic sort only by default, but can be much faster
+
+  var percentCompleteValueFn = function () {
+  var val = this["percentComplete"];
+  if (val < 10) {
+  return "00" + val;
+  } else if (val < 100) {
+  return "0" + val;
+  } else {
+  return val;
+  }
+  };
+
+  // use numeric sort of % and lexicographic for everything else
+  dataView.fastSort((sortcol == "percentComplete") ? percentCompleteValueFn : sortcol, args.sortAsc);
+  } else {
+  // using native sort with comparer
+  // preferred method but can be very slow in IE with huge datasets
+  
+  dataView.sort(comparer, args.sortCols[0].sortAsc);
+  }
+  });
+  
+  dataView.onRowCountChanged.subscribe(function (e, args) {
+  grid.render();
+  });
+  
+  dataView.onRowsChanged.subscribe(function (e, args) {
+  grid.invalidateRows(args.rows);
+  grid.render();
+  });
+  
+  /
+  / Filter
+  /
+  
+  function myFilter(item, args) {
+  var returnResult = true;
+
+  _.each(args.searchObject, function(filter) {
+  value = $.trim("" + (item[filter.field] || ""));
+  if(filter.field == 'region_id') {
+  if((value != filter.value)) {
+  
+  returnResult = false;
+  }
+  } else {
+  if(filter.value == 'blank') {
+  if(!_.isEmpty(value)) {
+  returnResult = false;
+  }
+  } else {
+  if((value.indexOf(filter.value) == -1)) {
+  returnResult = false;
+  }
+  }
+  }
+  });
+
+  return returnResult;
+  }
+  
+  dataView.beginUpdate();
+  dataView.setFilterArgs({
+  searchObject: searchObject
+  });
+  dataView.setFilter(myFilter);
+  dataView.endUpdate();
+  
+  $("#data-filter input").keyup(function (e) {
+  Slick.GlobalEditorLock.cancelCurrentEdit();
+
+  // clear on Esc
+  if (e.which == 27) {
+  this.value = "";
+  }
+  updateFilter();
+  });
+
+
+  $("#data-filter select, #data-filter input[type=checkbox]").change(function() {
+  updateFilter();
+  });
+
+  function updateFilter() {
+  filters();
+  dataView.setFilterArgs({
+  searchObject: searchObject
+  });
+  dataView.refresh();
+  }
+  
+  function filters() {
+  searchObject = [];
+  _.each($('#data-filter input[type=text], #data-filter select, #data-filter input:checked'), function(element) {
+  if(!_.isEmpty(element.value)) {
+  filterValue = {value: element.value, field: $(element).data('field')};
+  searchObject.push(filterValue);
+  }
+  });
+  }

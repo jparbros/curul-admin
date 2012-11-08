@@ -45,7 +45,7 @@ class Initiative < ActiveRecord::Base
   # Nested Attributes
   #
   attr_accessible :number, :title, :description, :presented_at, :presented_by_token, :commission_tokens, :topic_tokens, :state, :resources_attributes, :official_vote_up, 
-        :official_vote_down, :official_vote_abstentions, :official_votes_attributes
+        :official_vote_down, :official_vote_abstentions, :official_votes_attributes, :representative_id
   accepts_nested_attributes_for :official_votes
   accepts_nested_attributes_for :resources
 
@@ -59,7 +59,7 @@ class Initiative < ActiveRecord::Base
   #
   scope :main, where(:main => true)
   scope :actual_legislature, where(:legislature_id => (Legislature.active ? Legislature.active.id : nil))
-  default_scope {where(site_id: Site.current_id)}
+  # default_scope {where(site_id: Site.current_id)}
 
   #
   # Pagination

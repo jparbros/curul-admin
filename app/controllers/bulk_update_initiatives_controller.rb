@@ -1,4 +1,4 @@
-class BulkUpdateRepresentativesController < ApplicationController
+class BulkUpdateInitiativesController < ApplicationController
   skip_authorization_check
   
   layout 'full'
