@@ -1,0 +1,18 @@
+.box
+  .box-title
+    %h2 Sitios
+
+  .box-content
+    #datatable_wrapper.dataTables_wrapper{role: 'grid'}
+      #datatable_length.dataTables_length
+        = link_to 'Nuevo Sitio', new_site_path  , :class => [:btn, 'btn-primary']
+
+      %table.table.table-striped.table-bordered.dataTable
+        %thead
+          %tr
+            %th Dominio
+            %th Subdominio
+            %th Acciones
+
+        %tbody
+          = render @sites

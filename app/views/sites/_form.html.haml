@@ -1,0 +1,18 @@
+.contro-group
+  = form.label :name, 'Name:'
+  .controls
+    = form.text_field :name
+.contro-group
+  = form.label :subdomain, 'Sub Dominio'
+  .controls
+    = form.text_field :subdomain
+
+.contro-group
+  = form.label :custom_layout, 'Custom Layout?'
+  .controls
+    = form.check_box :custom_layout
+
+.contro-group
+  = form.label :custom_layout_content, 'Sub Dominio'
+  .controls
+    = form.text_area :custom_layout_content

@@ -18,7 +18,9 @@ CurulAdmin::Application.routes.draw do
   resources :political_parties
   resources :commissions
   resources :users
+  resources :sites
   resources :comments
+  
   resources :legislatures do
     resource :actual, controller: 'legislatures/actual', only: :create
   end

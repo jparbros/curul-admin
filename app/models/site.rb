@@ -17,5 +17,6 @@ class Site < ActiveRecord::Base
   #
   # Accessors
   #
+  attr_accessible :name, :subdomain, :custom_layout, :custom_layout_content
   cattr_accessor :current_id
 end

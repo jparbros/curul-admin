@@ -1,0 +1,6 @@
+%tr
+  %td= link_to site.name, site_path(site) if site
+  %td.center= site.subdomain if site
+  %td
+    = link_to 'Editar', edit_site_path(site), class: 'btn btn-primary btn-mini'
+    = link_to 'Borrar', site_path(site), :method => :delete, :confirm => '¿Esta seguro que desea eliminar la iniciativa?', class: 'btn btn-danger btn-mini'

@@ -1,0 +1,11 @@
+.box
+  .box-title
+    %h2 Nuevo Sitio
+
+  .box-content  
+    = form_for @site, :html => {:multipart => true, class: 'form-horizontal'} do |form|
+      = render "shared/error_messages", :target => @site
+      = render :partial => 'form', :locals => {:form => form}
+      .form-actions
+        = form.submit 'Editar Sitio', :class => 'btn btn-primary'
+        %input{:type => 'reset', :class => 'btn', :value => 'Limpiar'}
