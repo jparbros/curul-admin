@@ -13,6 +13,6 @@
     = form.check_box :custom_layout
 
 .contro-group
-  = form.label :custom_layout_content, 'Sub Dominio'
+  = form.label :custom_layout_content, 'Dynamic Layout:'
   .controls
-    = form.text_area :custom_layout_content
+    = form.text_area :custom_layout_content, rows: '20', class: 'span10'
