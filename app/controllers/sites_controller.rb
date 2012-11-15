@@ -11,7 +11,6 @@ class SitesController < ApplicationController
   end
   
   def edit
-    
   end
   
   def create
@@ -31,6 +30,10 @@ class SitesController < ApplicationController
     end
   end
   
+  def destroy
+    @site.destroy
+     redirect_to sites_path, notice: 'Sitio Borrado'
+  end
 
   
   private

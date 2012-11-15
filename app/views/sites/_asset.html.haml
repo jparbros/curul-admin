@@ -1,0 +1,9 @@
+.controls
+	-  if form.object.name?
+	= link_to form.object.name_url.split('/').last, form.object.name_url
+	- else
+		= form.label :name
+		.controls
+			= form.file_field :name
+	%br
+	= form.link_to_remove "Remover"

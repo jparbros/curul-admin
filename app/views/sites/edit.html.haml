@@ -3,7 +3,7 @@
     %h2 Editar Sitio
 
   .box-content  
-    = form_for @site, :html => {:multipart => true, class: 'form-horizontal'} do |form|
+    = nested_form_for @site, :html => {:multipart => true, class: 'form-horizontal'} do |form|   
       = render "shared/error_messages", :target => @site
       = render :partial => 'form', :locals => {:form => form}
       .form-actions

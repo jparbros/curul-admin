@@ -13,6 +13,12 @@
     = form.check_box :custom_layout
 
 .contro-group
+  Assets:
+  = form.fields_for :assets do |asset|
+    = render 'asset', {form: asset}
+
+= form.link_to_add 'Agregar Asset', :assets
+.contro-group
   = form.label :custom_layout_content, 'Dynamic Layout:'
   .controls
     = form.text_area :custom_layout_content, rows: '20', class: 'span10'

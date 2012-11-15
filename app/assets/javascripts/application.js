@@ -20,6 +20,7 @@
 //= require tinymce-jquery
 //= require bootstrap-datepicker
 //= require jquery.flot.min
+//= require jquery_nested_form
 //= require jquery.flot.time
 
 $(document).ready(function() {

@@ -17,6 +17,11 @@ class Site < ActiveRecord::Base
   #
   # Accessors
   #
-  attr_accessible :name, :subdomain, :custom_layout, :custom_layout_content
+  attr_accessible :name, :subdomain, :custom_layout, :custom_layout_content, :assets_attributes
   cattr_accessor :current_id
+  #
+  # Relations
+  #
+  has_many :assets
+  accepts_nested_attributes_for :assets, allow_destroy: true
 end

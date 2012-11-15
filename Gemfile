@@ -30,6 +30,7 @@ gem 'tinymce-rails'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'cancan'
+gem 'nested_form', :git => "git://github.com/ryanb/nested_form.git"
 
 group :assets do
   gem 'sass-rails'
@@ -44,7 +45,7 @@ group :development do
   gem 'annotate'
   gem 'heroku'
   gem 'taps'
-  gem "debugger"
+
 end
 
 group :production do
@@ -52,3 +53,4 @@ group :production do
 end
 
 gem 'pg'
+gem "debugger"
