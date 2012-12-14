@@ -31,6 +31,7 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'cancan'
 gem 'nested_form', :git => "git://github.com/ryanb/nested_form.git"
+gem 'configurable_engine'
 
 group :assets do
   gem 'sass-rails'

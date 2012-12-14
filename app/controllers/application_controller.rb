@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :scope_current_site, :authenticate_user!
-    
-  check_authorization :unless => :devise_controller?
+  
+  #check_authorization :unless => :devise_controller?
   
   def current_site
     @current_site ||= Site.find_by_subdomain! subdomain
